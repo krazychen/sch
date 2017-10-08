@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">正文</h1>
+		</header>
+		<div class="mui-content">
+			<div id="contentall" style="background:#FFF;border: 1px solid #CCC;">
+				<div id="titleid" style="color: #d9442e;font-size: 14px;font-weight: bold;line-height: 1.2; padding: 12px 0 12px;text-align: center;">                                                                                                                                                                                                                                                 </div>
+			    
+				<div style="height:24px; line-height:24px;margin:0 auto;">
+					<div id="timeA" style="font-size:11px; color:#666;text-align: center; ">&nbsp;&nbsp;发布时间：&nbsp;&nbsp;作者：&nbsp;&nbsp;
+			        </div>
+			    </div>
+			    <div id="zoom" style="margin:0px auto;min-height:300px;color: #666;font-family: '微软雅黑';font-size: 12px;line-height: 28px;padding: 0 30px; padding-top:10px;text-indent: 28px;"></div>
+			 	<div class="clear" style="background:#FFF; margin:0 auto;"></div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-1.9.1.js"></script>
+		<script>
+			// 获取url中的参数
+			function getUrlParam (name) {
+			     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			     var r = window.location.search.substr(1).match(reg);
+			     if (r!= null) {
+			        return unescape(r[2]);
+			     }else{
+			        return null;
+			     }
+			}    
+			var id=getUrlParam('targetId');
+			if(id){		
+				$.ajax({
+//			    	url: "http://192.168.31.212:8080/kcfw/a/cms/article/findArticle",
+			    	url:"https://cxr.xmut.edu.cn/a/cms/article/findArticle",
+			    	jsonp: "callback",
+			    	dataType: "jsonp",				 	
+				    data: {
+				        id:getUrlParam('targetId')
+				    },				 
+				    // Work with the response
+				    success: function(data){
+		               	var xs=data['aaa'][0];
+		               	$("#titleid").append(xs['title']);
+		               	$("#timeA").html("&nbsp;&nbsp;发布时间："+xs["time"]+"&nbsp;&nbsp;作者："+xs["author"]+"&nbsp;&nbsp");
+				    	$("#zoom").html(xs["content"]);
+				    },
+		            error: function(XMLHttpRequest, textStatus, errorThrown) {
+			            alert('error');
+			            alert(XMLHttpRequest.status);
+			            alert(XMLHttpRequest.readyState);
+			            alert(textStatus);
+			        }
+				});
+			}
+			
+		</script>
+	</body>
+
+</html>
