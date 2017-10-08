@@ -47,8 +47,8 @@
 					var cells = document.body.querySelectorAll('.mui-table-view-cell');
 
 					$.ajax({
-//				    	url: "http://192.168.31.212:8080/kcfw/a/cms/article/findArticles",
-				    	url:"https://cxr.xmut.edu.cn/a/cms/article/findArticles",
+				    	url: "http://192.168.31.126:8080/kcfw/a/cms/article/findArticles",
+//				    	url:"https://cxr.xmut.edu.cn/a/cms/article/findArticles",
 				    	jsonp: "callback",
 				    	dataType: "jsonp",				 	
 					    data: {
@@ -67,7 +67,23 @@
 				            		var li = document.createElement('li');
 									li.className = 'mui-table-view-cell mui-media';
 									var id=ob['id'].toString();
-									li.innerHTML = '<a href="javascript:openMain(\''+id+'\');" class="mui-navigate-right">'+
+									li.addEventListener('tap', function() {
+										var ii=$(this).find("a").attr('id');
+										mui.openWindow({
+											id: 'content',
+											url: 'content.html?targetId='+ii, 
+											show: {
+												aniShow: 'pop-in'
+											},
+											styles: {
+												popGesture: 'hide'
+											},
+											waiting: {
+												autoShow: false
+											}
+										});
+									})
+									li.innerHTML = '<a id="'+id+'" href="#" class="mui-navigate-right">'+
 									'<div class="mui-media-body">'+ob['title']+
 									'<p class="mui-ellipsis">'+ob['content']+'</p></div></a>';
 									//下拉刷新，新纪录插到最前面；

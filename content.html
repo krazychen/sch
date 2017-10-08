@@ -46,8 +46,8 @@
 			var id=getUrlParam('targetId');
 			if(id){		
 				$.ajax({
-//			    	url: "http://192.168.31.212:8080/kcfw/a/cms/article/findArticle",
-			    	url:"https://cxr.xmut.edu.cn/a/cms/article/findArticle",
+			    	url: "http://192.168.31.126:8080/kcfw/a/cms/article/findArticle",
+//			    	url:"https://cxr.xmut.edu.cn/a/cms/article/findArticle",
 			    	jsonp: "callback",
 			    	dataType: "jsonp",				 	
 				    data: {
@@ -55,10 +55,36 @@
 				    },				 
 				    // Work with the response
 				    success: function(data){
+				    	
 		               	var xs=data['aaa'][0];
 		               	$("#titleid").append(xs['title']);
-		               	$("#timeA").html("&nbsp;&nbsp;发布时间："+xs["time"]+"&nbsp;&nbsp;作者："+xs["author"]+"&nbsp;&nbsp");
+		               	$("#timeA").html("&nbsp;&nbsp;发布时间："+xs["time"]+"&nbsp;&nbsp;作者："+xs["author"]+"&nbsp;&nbsp");			
 				    	$("#zoom").html(xs["content"]);
+				    	var picUrl="http://192.168.31.126:8080";
+//			    	    var picUrl="https://cxr.xmut.edu.cn/",
+						
+						
+						$('img').each(function() {  
+							var src= $(this).attr("src");
+							$(this).attr('src',picUrl+src+"?t="+Math.random());
+					        var maxWidth =220; // 图片最大宽度  
+					        var maxHeight =300;  // 图片最大高度  
+					        var ratio = 0; // 缩放比例 
+					        var width = $(this).width();  // 图片实际宽度  
+					        var height = $(this).height(); // 图片实际高度   // 检查图片是否超宽  
+					        if(width > maxWidth){    
+					        	ratio = maxWidth / width;  // 计算缩放比例    
+					        	$(this).css("width", maxWidth); // 设定实际显示宽度    
+					         	height = height * ratio;  // 计算等比例缩放后的高度    
+					         	$(this).css("height", height); // 设定等比例缩放后的高度  
+					        }   // 检查图片是否超高 
+					         if(height > maxHeight){    
+					          ratio = maxHeight / height; // 计算缩放比例   
+					          $(this).css("height", maxHeight);  // 设定实际显示高度    
+					          width = width * ratio;  // 计算等比例缩放后的高度    
+					          $(this).css("width", width);  // 设定等比例缩放后的高度  
+					    	}
+					    });
 				    },
 		            error: function(XMLHttpRequest, textStatus, errorThrown) {
 			            alert('error');
