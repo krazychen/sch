@@ -191,6 +191,7 @@
 	<script src="js/mui.view.js "></script>
 	<script src="js/jquery-1.9.1.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/common.js"></script>
 	<script>
 		mui.init();
 		//初始化单页view
@@ -204,8 +205,7 @@
 			var id=getUrlParam('targetId');
 			if(id){
 				$.ajax({
-//			    	url: "http://192.168.31.212:8080/kcfw/a/cms/article/getContact",
-			    	url:"https://cxr.xmut.edu.cn/a/cms/article/getContact",
+			    	url: acc_url+"/cms/article/getContact",
 			    	jsonp: "callback",
 			    	dataType: "jsonp",				 	
 				    data: {

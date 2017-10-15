@@ -17,7 +17,7 @@
 			<div class="mui-scroll">
 				<!--数据列表-->
 				<ul class="mui-table-view mui-table-view-chevron">
-					
+
 				</ul>
 			</div>
 		</div>
@@ -32,11 +32,12 @@
 					container: '#pullrefresh',
 					down: {
 						callback: pulldownRefresh
-					}/*,
-					up: {
-						contentrefresh: '正在加载...',
-						callback: pullupRefresh
-					}*/
+					}
+					/*,
+										up: {
+											contentrefresh: '正在加载...',
+											callback: pullupRefresh
+										}*/
 				}
 			});
 			/**
@@ -48,30 +49,33 @@
 					var cells = document.body.querySelectorAll('.mui-table-view-cell');
 
 					$.ajax({
-				    	url: acc_url+"/cms/article/findArticles",
-				    	jsonp: "callback",
-				    	dataType: "jsonp",				 	
-					    data: {
-					        ids:'4ca4a6c7cd574fd985dfb154daee2bac',
-					        curDate:$("#curDate").val(),
-					        newDate:$.format.date(new Date().getTime(), "yyyy-MM-dd HH:mm:ss")
-					    },				 
-					    // Work with the response
-					    success: function(data){
-			                var xs=data['aaa'];
-			                if(xs.length==0){
-			                	mui.toast('暂无更新',{ duration:'short', type:'div' }) 
-			                }else{
-				            	for(var i=0;i<xs.length;i++){
-				            		var ob=xs[i];
-				            		var li = document.createElement('li');
+						url: acc_url + "/cms/article/findArticles",
+						jsonp: "callback",
+						dataType: "jsonp",
+						data: {
+							ids: 'e7660b429529446b85bb7bed854381c2',
+							curDate: $("#curDate").val(),
+							newDate: $.format.date(new Date().getTime(), "yyyy-MM-dd HH:mm:ss")
+						},
+						// Work with the response
+						success: function(data) {
+							var xs = data['aaa'];
+							if(xs.length == 0) {
+								mui.toast('暂无更新', {
+									duration: 'short',
+									type: 'div'
+								})
+							} else {
+								for(var i = 0; i < xs.length; i++) {
+									var ob = xs[i];
+									var li = document.createElement('li');
 									li.className = 'mui-table-view-cell mui-media';
-									var id=ob['id'].toString();
+									var id = ob['id'].toString();
 									li.addEventListener('tap', function() {
-										var ii=$(this).find("a").attr('id');
+										var ii = $(this).find("a").attr('id');
 										mui.openWindow({
 											id: 'content',
-											url: 'content.html?targetId='+ii, 
+											url: 'content.html?targetId=' + ii,
 											show: {
 												aniShow: 'pop-in'
 											},
@@ -83,23 +87,23 @@
 											}
 										});
 									})
-									li.innerHTML = '<a id="'+id+'" href="#" class="mui-navigate-right">'+
-									'<div class="mui-media-body">'+ob['title']+
-									'<p class="mui-ellipsis">'+ob['content']+'</p></div></a>';
+									li.innerHTML = '<a id="' + id + '" href="#" class="mui-navigate-right">' +
+										'<div class="mui-media-body">' + ob['title'] +
+										'<p class="mui-ellipsis">' + ob['content'] + '</p></div></a>';
 									//下拉刷新，新纪录插到最前面；
 									table.insertBefore(li, table.firstChild);
-				            	}
-				            }
-			            	setDate();
-					    },
-			            error: function(XMLHttpRequest, textStatus, errorThrown) {
-				            alert('error');
-				            alert(XMLHttpRequest.status);
-				            alert(XMLHttpRequest.readyState);
-				            alert(textStatus);
-				        }
+								}
+							}
+							setDate();
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							alert('error');
+							alert(XMLHttpRequest.status);
+							alert(XMLHttpRequest.readyState);
+							alert(textStatus);
+						}
 					});
-					
+
 					/*for (var i = cells.length, len = i + 3; i < len; i++) {
 						var li = document.createElement('li');
 						li.className = 'mui-table-view-cell mui-media';
@@ -117,23 +121,23 @@
 			 * 上拉加载具体业务实现
 			 */
 			function pullupRefresh() {
-				
+
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
 					var table = document.body.querySelector('.mui-table-view');
 					var cells = document.body.querySelectorAll('.mui-table-view-cell');
-								
-					for (var i = cells.length, len = i + 20; i < len; i++) {
+
+					for(var i = cells.length, len = i + 20; i < len; i++) {
 						var li = document.createElement('li');
 						li.className = 'mui-table-view-cell mui-media';
-						li.innerHTML = '<a href="javascript:;" class="mui-navigate-right">'+
-						'<div class="mui-media-body">Item '+(i+1)+
-						'<p class="mui-ellipsis">Item</p></div></a>';
+						li.innerHTML = '<a href="javascript:;" class="mui-navigate-right">' +
+							'<div class="mui-media-body">Item ' + (i + 1) +
+							'<p class="mui-ellipsis">Item</p></div></a>';
 						table.appendChild(li);
 					}
 				}, 1500);
 			}
-			if (mui.os.plus) {
+			if(mui.os.plus) {
 				mui.plusReady(function() {
 					setTimeout(function() {
 						mui('#pullrefresh').pullRefresh().pulldownLoading();
@@ -146,15 +150,15 @@
 				});
 				$("#curDate").val("");
 			}
-			
-			function setDate(){
+
+			function setDate() {
 				$("#curDate").val($.format.date(new Date().getTime(), "yyyy-MM-dd HH:mm:ss"));
 			}
-			
-			function openMain(id){
+
+			function openMain(id) {
 				mui.openWindow({
 					id: 'content',
-					url: 'content.html?targetId='+id, 
+					url: 'content.html?targetId=' + id,
 					show: {
 						aniShow: 'pop-in'
 					},
@@ -166,7 +170,6 @@
 					}
 				});
 			}
-
 		</script>
 	</body>
 

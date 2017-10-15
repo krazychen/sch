@@ -46,6 +46,7 @@
 		<script src="js/mui.indexedlist.js"></script>
 		<script src="js/app.js"></script>
 		<script src="js/jquery-1.9.1.js"></script>
+		<script src="js/common.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.ready(function() {
@@ -60,8 +61,7 @@
 						'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 //				alert(app.getState().account);
 				$.ajax({
-//			    	url: "http://192.168.52.2:8080/kcfw/a/cms/article/findContacts",
-					url:"https://cxr.xmut.edu.cn/a/cms/article/findContacts",
+			    	url: acc_url+"/cms/article/findContacts",
 			    	jsonp: "callback",
 			    	dataType: "jsonp",				 	
 				    data: {
